@@ -1,0 +1,556 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        16
+      ],
+      "id": "7017275c-1d64-4661-846a-b9aad01da234",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "EnPxmxz5YltlTDj5",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0ALMF0SBBM",
+          "mode": "list",
+          "cachedResultName": "new-channel"
+        },
+        "text": "=🚨 URGENT ISSUE\n\nSubject: {{$json[\"subject\"]}}\n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        768,
+        -80
+      ],
+      "id": "6d620f9b-2a1e-4886-8bef-93b4819c12e2",
+      "name": "Send a message",
+      "webhookId": "7a4cdc55-3a0f-4d4b-b38d-69dba9150374",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "SxNRxyKk2ds5hsz4",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0ALRQKFSCW",
+          "mode": "list",
+          "cachedResultName": "all-workspace"
+        },
+        "text": "=ℹ️ NORMAL REQUEST\n\nSubject: {{$json[\"subject\"]}}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        720,
+        240
+      ],
+      "id": "991ff6b4-b2fa-41a5-a6f5-f59bca1624a3",
+      "name": "Send a message2",
+      "webhookId": "143c56ae-e856-44bc-b337-cc2f47067d74",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "SxNRxyKk2ds5hsz4",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y",
+          "mode": "list",
+          "cachedResultName": "Support tickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Subject": "={{$json[\"subject\"]}}",
+            "Priority": "Urgent",
+            "Category": "General",
+            "Sentiment": "Neutral"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sentiment",
+              "displayName": "Sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        896,
+        -80
+      ],
+      "id": "718648ca-675a-4e52-abc8-9f10358c521f",
+      "name": "Sheets - Urgent",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "R6zjLfjdNQpIitVl",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y",
+          "mode": "list",
+          "cachedResultName": "Support tickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "subject": "={{$json[\"subject\"]}}",
+            "sentiment": "=Neutral",
+            "priority": "High",
+            "category": "General"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sentiment",
+              "displayName": "sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        912,
+        80
+      ],
+      "id": "e1983219-2a29-4ee2-a9dc-9741798dc53c",
+      "name": "Sheets - High",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "9liY77P4IhiqHFkZ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y",
+          "mode": "list",
+          "cachedResultName": "Support tickets",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1g6aYqKdVLDwByw2F7ps6fB6QcfjPtljj98rZVAXWP3Y/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "subject": "={{$json[\"subject\"]}}",
+            "priority": "Normal",
+            "category": "General",
+            "sentiment": "Neutral"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "subject",
+              "displayName": "subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "priority",
+              "displayName": "priority",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "category",
+              "displayName": "category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sentiment",
+              "displayName": "sentiment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        928,
+        240
+      ],
+      "id": "b772f6d9-3ad2-4e36-9121-801a29225efe",
+      "name": "Sheets - Normal",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "R6zjLfjdNQpIitVl",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0ALMF0SBBM",
+          "mode": "list",
+          "cachedResultName": "new-channel"
+        },
+        "text": "=⚠️ HIGH PRIORITY\n\nSubject: {{$json[\"subject\"]}}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        720,
+        48
+      ],
+      "id": "e2b505cf-712b-4c7c-93fa-cacb28346245",
+      "name": "Send a message1",
+      "webhookId": "7cc7414b-8848-4f17-ba55-f3deb20a49e8",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "SxNRxyKk2ds5hsz4",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json[\"subject\"].toLowerCase()}}",
+                    "rightValue": "urgent",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "3cb65873-b748-4af4-a33e-f5be796cfb2e"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Urgent"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "0385e3b8-bd57-4d28-95f3-68212d01ab38",
+                    "leftValue": "={{$json[\"subject\"].toLowerCase()}}",
+                    "rightValue": "error",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "High"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "23ebb8a3-87d3-43f5-9205-0f8ae6e43473",
+                    "leftValue": "",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Normal"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        544,
+        48
+      ],
+      "id": "f6a01605-98bf-4b67-bd79-f6ef9e6295c1",
+      "name": "Switch"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Sheets - Urgent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message2": {
+      "main": [
+        [
+          {
+            "node": "Sheets - Normal",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sheets - Urgent": {
+      "main": [
+        []
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Sheets - High",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "37836118-5568-4659-be9f-0e0e3e957155",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ab8692184134c10a2c3d9d630e83fb4100e383e766d833798f39c66146adad1a"
+  },
+  "id": "kqgDkVj8uikDG01u",
+  "tags": []
+}
